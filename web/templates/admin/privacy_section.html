@@ -1,0 +1,78 @@
+{% extends 'admin/admin_index.html' %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Privacy Policy Section</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        <div class="btn-group mr-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#addPolicy">Add New Policy</button>
+        </div>
+    </div>
+</div>
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+                <li class="alert alert-{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+<br>
+<div>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+                <th>#</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                {% for i in privacy %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ i.title }}</td>
+                    <td>{{ i.description }}</td>
+                    <td>
+                        <a href="{{ url_for('Admin.remove_privacy', id=i.id) }}">
+                            <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+    <!-- Modal -->
+    <div class="modal fade" id="addPolicy" tabindex="-1" role="dialog" aria-labelledby="addPolicyLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="addPolicyLabel">Add New Policy</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ url_for('Admin.update_privacy') }}" method="post">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="PolicyName" name="title" placeholder="Policy Title" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" id="Textarea1" rows="3" name="description" placeholder="Policy Description"></textarea>
+                    </div>
+                    <div>
+                        <button type="submit" class="btn btn-outline-success">Save</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer text-left">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Saurav Sikdar">
+    {% if title %}
+        <title>{{ title }}</title>
+    {% else %}
+        <title>Admin | Home Page</title>
+    {% endif %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    {% block head %}
+    {% endblock %}
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+    </style>
+    {% block style %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/admin_index.css') }}">
+    {% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Company name</a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="{{ url_for('Admin.logout') }}">Sign out</a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="container-fluid">
+        <div class="row">
+          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+            <div class="sidebar-sticky pt-3">
+              <ul class="nav flex-column">
+                {% block nav %}
+                <li class="nav-item">
+                  <a class="nav-link active" href="{{ url_for('Admin.home_page') }}">
+                    <span class="side-icons"><i class="fas fa-home"></i></span>
+                    Dashboard <span class="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('Admin.show_orders') }}">
+                    <span class="side-icons"><i class="fas fa-box-open"></i></span>
+                    Orders
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('Admin.show_products') }}">
+                    <span class="side-icons"><i class="fas fa-pencil-ruler"></i></span>
+                    Products
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('Admin.show_customers') }}">
+                    <span class="side-icons"><i class="fas fa-users"></i></span>
+                    Customers
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('Admin.show_vendors') }}">
+                    <span class="side-icons"><i class="fas fa-user-shield"></i></span>
+                    Vendors
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('Admin.show_complains') }}">
+                    <span class="side-icons"><i class="fas fa-exclamation-circle"></i></span>
+                    Complains
+                  </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('Admin.show_feedbacks') }}">
+                      <span class="side-icons"><i class="fas fa-comments"></i></span>
+                      Feedbacks
+                    </a>
+                </li>
+                {% endblock %}
+              </ul>
+            </div>
+          </nav>
+      
+          <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+            {% block content %}
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Dashboard</h1>
+              <!-- <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group mr-2">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                </div>
+              </div> -->
+            </div>
+
+            <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide='false'>
+                <div class="toast-header">
+                  <img src="{{ url_for('static', filename='images/bell.png') }}" class="rounded mr-2" alt="notification icon">
+                  <strong class="mr-auto">Sales Summary</strong>
+                  <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="toast-body">
+                  The Total Sales for today is: 
+                </div>
+              </div>
+
+            <br>
+            <div class="row rowCards">
+                <div class="col">
+                    <div class="card shadow p-2 mb-3 rounded">
+                        <div class="card-body">
+                          <h5 class="card-title"><strong>Add New Admin</strong></h5>
+                        </div>
+                        <a href="{{ url_for('Admin.get_admin_page') }}" class="stretched-link"></a>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow p-2 mb-3 rounded">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>Change Password</strong></h5>
+                        </div>
+                        <a href="{{ url_for('Admin.change_password') }}" class="stretched-link"></a>
+                    </div>
+                </div>
+                    <div class="w-100 d-sm-none"></div>
+                <div class="col">
+                    <div class="card shadow p-2 mb-3 rounded">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>New Vendor Request</strong></h5>
+                        </div>
+                        <a href="{{ url_for('Admin.get_vendor_request') }}" class="stretched-link"></a>
+                    </div>
+                </div>
+                    <div class="w-100 d-none d-md-block"></div>
+                <div class="col">
+                    <div class="card shadow p-2 mb-3 rounded">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>Banner Images</strong></h5>
+                        </div>
+                        <a href="{{ url_for('Admin.get_banner_page') }}" class="stretched-link"></a>
+                    </div>
+                </div>
+                    <div class="w-100 d-sm-none"></div>
+                <div class="col">
+                    <div class="card shadow p-2 mb-3 rounded">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>Promotional Codes</strong></h5>
+                        </div>
+                        <a href="{{ url_for('Admin.get_codes_page') }}" class="stretched-link"></a>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card shadow p-2 mb-3 rounded">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>Update About Section</strong></h5>
+                        </div>
+                        <a href="{{ url_for('Admin.get_about_page') }}" class="stretched-link"></a>
+                    </div>
+                </div>
+                <div class="w-100 d-sm-none"></div>
+                <div class="w-100 d-none d-md-block"></div>
+                <div class="col">
+                  <div class="card shadow p-2 mb-3 rounded">
+                      <div class="card-body">
+                          <h5 class="card-title"><strong>Category for Products</strong></h5>
+                      </div>
+                      <a href="{{ url_for('Admin.show_category') }}" class="stretched-link"></a>
+                  </div>
+              </div>
+              <div class="col">
+                <div class="card shadow p-2 mb-3 rounded">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>Privacy Policy</strong></h5>
+                    </div>
+                    <a href="{{ url_for('Admin.get_privacy_page') }}" class="stretched-link"></a>
+                </div>
+              </div>
+              <div class="w-100 d-sm-none"></div>
+              <div class="col">
+                <div class="card shadow p-2 mb-3 rounded">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>FAQ Policy</strong></h5>
+                    </div>
+                    <a href="{{ url_for('Admin.get_faq_page') }}" class="stretched-link"></a>
+                </div>
+              </div>
+              <div class="w-100 d-none d-md-block"></div>
+              <div class="col col-md-4">
+                <div class="card shadow p-2 mb-3 rounded">
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>Add Cities</strong></h5>
+                    </div>
+                    <a href="{{ url_for('Admin.get_city_charge_view') }}" class="stretched-link"></a>
+                </div>
+              </div>
+            </div>
+            {% endblock %}
+          </main>
+        </div>
+      </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/7021a802fd.js" crossorigin="anonymous"></script>
+    {% block script %}
+    <script src="{{ url_for('static', filename='js/admin_index.js') }}"></script>
+    {% endblock %}
+</body>
+</html>

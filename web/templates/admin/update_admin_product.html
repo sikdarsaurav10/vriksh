@@ -1,0 +1,42 @@
+{% extends 'admin/admin_products.html' %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Product Id: {{ product.product_id }}</h1>
+</div>
+
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+                <li class="alert alert-{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<div>
+    <form action="{{ url_for('Admin.update_product', product_id=product.product_id) }}" method="post">
+        <div class="form-group">
+            <label for="productName">Product Name</label>
+            <input type="text" class="form-control" id="productName" name="name" placeholder="Product Name" value="{{ product.product_name }}" required>
+        </div>
+        <div class="form-group">
+            <label for="Textarea1">Product Description</label>
+            <textarea class="form-control" id="Textarea1" rows="3" placeholder="Product Description..." name="description">{{ product.description }}</textarea>
+        </div>
+        <div class="form-group">
+            <label for="productPrice">Price</label>
+            <input type="text" class="form-control" id="productPrice" name="price" placeholder="Product Price" value="{{ product.price }}" required>
+        </div>
+        <div class="form-group">
+            <label for="productdiscount">Discounted Price</label>
+            <input type="text" class="form-control" id="productdiscount" name="discount" placeholder="Product Discounted Price" value="{{ product.discount }}" required>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-outline-warning">Update</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

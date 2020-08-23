@@ -1,0 +1,111 @@
+{% extends 'admin/admin_index.html' %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Banner Images</h1>
+</div>
+
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+                <li class="alert alert-{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<div class="row">
+    <div class="col-sm col-md-4">
+        <div class="card shadow p-2 mb-3 rounded">
+            {% if images %}
+                <img src="{{ url_for('static', filename='images/banner_pics/')+images.image_1 }}" class="card-img-top" width="200px" height="200px" alt="banner image 1">
+            {% else %}
+                <img src="https://dummyimage.com/200x200/000/fff&text=No+Images+till+now" class="card-img-top" width="200px" height="200px" alt="banner image 1">
+            {% endif %}
+            <div class="card-body text-center">
+              <br>
+              <form action="{{ url_for('Admin.upload_banner_images', image='one') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="image" id="productImage" class="ml-5">
+                </div>
+                <button type="submit" class="btn btn-outline-success">Save</button>
+              </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm col-md-4">
+        <div class="card shadow p-2 mb-3 rounded">
+            {% if images %}
+                <img src="{{ url_for('static', filename='images/banner_pics/')+images.image_2 }}" class="card-img-top" width="200px" height="200px" alt="banner image 1">
+            {% else %}
+                <img src="https://dummyimage.com/200x200/000/fff&text=No+Images+till+now" class="card-img-top" width="200px" height="200px" alt="banner image 1">
+            {% endif %}
+            <div class="card-body text-center">
+              <br>
+              <form action="{{ url_for('Admin.upload_banner_images', image='two') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="image" id="productImage" class="ml-5">
+                </div>
+                <button type="submit" class="btn btn-outline-success">Save</button>
+              </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm col-md-4">
+        <div class="card shadow p-2 mb-3 rounded">
+            {% if images %}
+                <img src="{{ url_for('static', filename='images/banner_pics/')+images.image_3 }}" class="card-img-top" width="200px" height="200px" alt="banner image 1">
+            {% else %}
+                <img src="https://dummyimage.com/200x200/000/fff&text=No+Images+till+now" class="card-img-top" width="200px" height="200px" alt="banner image 1">
+            {% endif %}
+            <div class="card-body text-center">
+              <br>
+              <form action="{{ url_for('Admin.upload_banner_images', image='three') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="image" id="productImage" class="ml-5">
+                </div>
+                <button type="submit" class="btn btn-outline-success">Save</button>
+              </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm col-md-4">
+        <div class="card shadow p-2 mb-3 rounded">
+            {% if images %}
+                <img src="{{ url_for('static', filename='images/banner_pics/')+images.image_4 }}" class="card-img-top" width="200px" height="200px" alt="banner image 1">
+            {% else %}
+                <img src="https://dummyimage.com/200x200/000/fff&text=No+Images+till+now" class="card-img-top" width="200px" height="200px" alt="banner image 1">
+            {% endif %}
+            <div class="card-body text-center">
+              <br>
+              <form action="{{ url_for('Admin.upload_banner_images', image='four') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="image" id="productImage" class="ml-5">
+                </div>
+                <button type="submit" class="btn btn-outline-success">Save</button>
+              </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm col-md-4">
+        <div class="card shadow p-2 mb-3 rounded">
+            {% if images %}
+                <img src="{{ url_for('static', filename='images/banner_pics/')+images.image_5 }}" class="card-img-top" width="200px" height="200px" alt="banner image 1">
+            {% else %}
+                <img src="https://dummyimage.com/200x200/000/fff&text=No+Images+till+now" class="card-img-top" width="200px" height="200px" alt="banner image 1">
+            {% endif %}
+            <div class="card-body text-center">
+              <br>
+              <form action="{{ url_for('Admin.upload_banner_images', image='five') }}" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input type="file" name="image" id="productImage" class="ml-5">
+                </div>
+                <button type="submit" class="btn btn-outline-success">Save</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

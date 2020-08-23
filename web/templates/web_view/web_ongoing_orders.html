@@ -1,0 +1,114 @@
+{% extends 'web_view/layout.html' %}
+{% block head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong:300,400,400i,500,600,700" />
+<style>
+  body {
+      font-family: 'Trirong', serif;
+      background: #fff;
+  }
+  .contentImg {
+    width: 80px;
+    height: 110px;
+   }
+   .contentImg img {
+        width: 100px;
+        height: 110px;
+   }
+</style>
+{% endblock %}
+{% block content %}
+
+<section class="mt-3">
+    <div class="container-fluid px-md-5 px-sm-1">
+        {% if (new_order|length != 0 or ongoing_order|length != 0) %}
+            {% for item in new_order %}
+                <div class="card p-2 mb-2" style="width: 100%; height: auto;">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h5 class="card-title">Order ID: {{ item.order_id }}</h5>
+                            <h6 class="ml-auto">Order Date: {{ item.order_date }}</h6>
+                        </div>
+                        <div class="card shadow-sm p-2 mb-2 bg-white rounded">
+                            {% for i in item.products %}
+                            <div class="row no-gutters" class="productRow">
+                                <div class="col col-md-4 contentImg">
+                                    <img src="{{ url_for('static', filename='images/product_prof_pic/')+i.prof_img }}" class="card-img" alt="product image">
+                                </div>
+                                <div class="col col-md-8 ProductCol">
+                                    <div class="card-body">
+                                    <h5 class="card-title">{{ i.product_name }}</h5>
+                                    <h6 class="pt-1 mr-2" style="color: grey;">Quantity: <span class="quant">{{ i.quantity }}</span></h6>
+                                    <h5>₹ <span class="productItemAmt">{{ i.total_price }}</span></h5>
+                                    </div>
+                                </div>
+                            </div>
+                            {% if loop.index != loop.length %}
+                            <hr>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                        <hr>
+                        <h6 class="card-title">Total Amount: ₹ {{ item.total_bill }}</h6>
+                        <p>Delivery Address: {{ item.delivery_address }}</p>
+                        <p class="ml-auto" style="color: orange;">Order yet to be accepted by vendor</p>
+                        <hr>
+                        <a href="{{ url_for('Website.web_cancel_order', order_id=item.order_id) }}">
+                            <button class="btn btn-danger">Cancel Order</button>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for item in ongoing_order %}
+                <div class="card p-2 mb-2" style="width: 100%; height: auto;">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h5 class="card-title">Order ID: {{ item.order_id }}</h5>
+                            <h6 class="ml-auto">Order Date: {{ item.order_date }}</h6>
+                        </div>
+                        <div class="card shadow-sm p-2 mb-2 bg-white rounded">
+                            {% for i in item.products %}
+                            <div class="row no-gutters" class="productRow">
+                                <div class="col col-md-4 contentImg">
+                                    <img src="{{ url_for('static', filename='images/product_prof_pic/')+i.prof_img }}" class="card-img" alt="product image">
+                                </div>
+                                <div class="col col-md-8 ProductCol">
+                                    <div class="card-body">
+                                    <h5 class="card-title">{{ i.product_name }}</h5>
+                                    <h6 class="pt-1 mr-2" style="color: grey;">Quantity: <span class="quant">{{ i.quantity }}</span></h6>
+                                    <!-- {% if i.offer != 0 %}
+                                        {% set amt = (i.total_price - ((i.total_price) * ((i.quantity) * (i.offer / 100))))|int %}
+                                        <h5>₹ <span class="productItemAmt">{{ amt }}</span></h5>
+                                    {% else %}
+                                        <h5>₹ <span class="productItemAmt">{{ i.total_price }}</span></h5>
+                                    {% endif %} -->
+                                    <h5>₹ <span class="productItemAmt">{{ i.total_price }}</span></h5>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <hr>
+                        <h6 class="card-title">Total Amount: ₹ {{ item.total_bill }}</h6>
+                        <p>Delivery Address: {{ item.delivery_address }}</p>
+                        <p class="ml-auto" style="color: green;">Order accepted by vendor</p>
+                        {% if item.pickup_status is false %}
+                        <p class="ml-auto" style="color: red;">Pickup Status: Not yet Picked Up</p>
+                        {% else %}
+                        <p class="ml-auto" style="color: purple;">Order On it's Way</p>
+                        {% endif %}
+                        <hr>
+                        <a href="{{ url_for('Website.web_cancel_order', order_id=item.order_id) }}">
+                            <button class="btn btn-danger">Cancel Order</button>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+        <div class="alert alert-danger" role="alert">
+            No Orders Till Now
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends 'web_view/layout.html' %}
+{% block head %}
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong:300,400,400i,500,600,700" />
+<style>
+  body {
+      font-family: 'Trirong', serif;
+      background: #fff;
+  }
+  .contentImg {
+    width: 80px;
+    height: 110px;
+   }
+   .contentImg img {
+        width: 100px;
+        height: 110px;
+   }
+</style>
+{% endblock %}
+{% block content %}
+
+<section class="mt-3">
+    <div class="container-fluid px-md-5 px-sm-1">
+        {% if prev_order|length != 0 %}
+            {% for item in prev_order %}
+                <div class="card p-2 mb-2" style="width: 100%; height: auto;">
+                    <div class="card-body">
+                        <div class="d-flex">
+                            <h5 class="card-title">Order ID: {{ item.order_id }}</h5>
+                            <h6 class="ml-auto">Delivery Date: {{ item.complete_date }}</h6>
+                        </div>
+                        <div class="card shadow-sm p-2 mb-2 bg-white rounded">
+                            {% for i in item.products %}
+                            <div class="row no-gutters" class="productRow">
+                                <div class="col col-md-4 contentImg">
+                                    <img src="{{ url_for('static', filename='images/product_prof_pic/')+i.prof_img }}" class="card-img" alt="product image">
+                                </div>
+                                <div class="col col-md-8 ProductCol">
+                                    <div class="card-body">
+                                    <span class="product_id" style="display: none;">{{ i.product_id }}</span>
+                                    <h5 class="card-title">{{ i.product_name }}</h5>
+                                    <h6 class="pt-1 mr-2" style="color: grey;">Quantity: <span class="quant">{{ i.quantity }}</span></h6>
+                                    <h5>₹ <span class="productItemAmt">{{ i.total_price }}</span></h5>
+                                    <div>
+                                        {% if i.rating == '0' %}
+                                        <div class="d-md-flex">
+                                            <p>Rate Product</p>
+                                            <form action="" method="post" class="rateForm">
+                                                <div class="form-row">
+                                                    <div class="col">
+                                                        <input type="number" class="form-control" name="rating" min="0" max="5" onKeyUp="if((this.value>5) && (this.value.length>=1)){this.value='5';}else if((this.value<1) && (this.value.length>=1)){this.value='0';}">
+                                                    </div>
+                                                    <div class="col">
+                                                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        {% else %}
+                                        <p>{{ i.rating }} <span style="color: yellow; font-size: 15px;"><i class="fas fa-star"></i></span></p>
+                                        <div class="d-md-flex">
+                                            <p>Rate Product</p>
+                                            <form action="" method="post" class="rateForm">
+                                                <div class="form-row">
+                                                    <div class="col">
+                                                        <input type="number" class="form-control" name="rating" min="0" max="5" onKeyUp="if((this.value>5) && (this.value.length>=1)){this.value='5';}else if((this.value<1) && (this.value.length>=1)){this.value='0';}">
+                                                    </div>
+                                                    <div class="col">
+                                                        <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        {% endif %}
+                                        <div class="rateMsg"></div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <hr>
+                        <h6 class="card-title">Total Amount: ₹ {{ item.total_bill }}</h6>
+                        <p>Delivery Address: {{ item.delivery_address }}</p>
+                        <div>
+                            <span style="display: none;" class="vendor_id">{{ item.vendor_id }}</span>
+                            {% if item.vendor_rating == '0' %}
+                            <div class="d-md-flex">
+                                <p>Rate Vendor</p>
+                                <form action="" method="post" class="rateFormVendor">
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <input type="number" class="form-control" name="rating" min="0" max="5" onKeyUp="if((this.value>5) && (this.value.length>=1)){this.value='5';}else if((this.value<=0) && (this.value.length>=1)){this.value='0';}">
+                                        </div>
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            {% else %}
+                            <p>{{ item.vendor_rating }} <span style="color: yellow; font-size: 15px;"><i class="fas fa-star"></i></span></p>
+                            <div class="d-md-flex">
+                                <p>Rate Vendor</p>
+                                <form action="" method="post" class="rateFormVendor">
+                                    <div class="form-row">
+                                        <div class="col">
+                                            <input type="number" class="form-control" name="rating" min="0" max="5" onKeyUp="if((this.value>5) && (this.value.length>=1)){this.value='5';}else if((this.value<=0) && (this.value.length>=1)){this.value='0';}">
+                                        </div>
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-primary btn-sm">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            {% endif %}
+                            <div class="rateMsg"></div>
+                        </div>
+                        <hr>
+                        <a href="{{ url_for('Website.web_complain', order_id=item.order_id, vendor_id=item.vendor_id) }}">
+                            <button class="btn btn-danger">Order Complain</button>
+                        </a>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+        <div class="alert alert-danger" role="alert">
+            No Completed orders Till Now
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+{% block script %}
+<script>
+    $(window).ready(function(){
+        $('.rateForm').on("submit", function(e){
+            e.preventDefault();
+            var $n = $(this).parent().parent().parent().find('.product_id').text();
+            var rate = $(this).find('input[name="rating"]').val();
+            var msg = $(this).parent().parent().find('.rateMsg');
+            data_js = {
+                "product_id": $n,
+                "rating": rate
+            }
+            $.ajax({
+                url: "/web/ratings/products",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data_js),
+            }).done(function(data){
+                if (data.success == '1') {
+                    msg.html('<div class="alert alert-success">Ratings Saved</div>')
+                }
+                else{
+                    msg.html('<div class="alert alert-danger">Error Occured Please Try again</div>')
+                }
+            });
+        })
+
+        $('.rateFormVendor').on("submit", function(e){
+            e.preventDefault();
+            var $n = $(this).parent().parent().find('.vendor_id').text();
+            var rate = $(this).find('input[name="rating"]').val();
+            var msg = $(this).parent().parent().find('.rateMsg');
+            data_js = {
+                "vendor_id": $n,
+                "rating": rate
+            }
+            $.ajax({
+                url: "/web/ratings/new",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data_js),
+            }).done(function(data){
+                if (data.success == '1') {
+                    msg.html('<div class="alert alert-success">Ratings Saved</div>')
+                }
+                else{
+                    msg.html('<div class="alert alert-danger">Error Occured Please Try again</div>')
+                }
+            });
+        })
+    });
+</script>
+{% endblock %}

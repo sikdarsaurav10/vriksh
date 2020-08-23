@@ -1,0 +1,68 @@
+{% extends 'admin/admin_index.html' %}
+{% block nav %}
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('Admin.home_page') }}">
+            <span class="side-icons"><i class="fas fa-home"></i></span>
+            Dashboard
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('Admin.show_orders') }}">
+            <span class="side-icons"><i class="fas fa-box-open"></i></span>
+            Orders
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('Admin.show_products') }}">
+            <span class="side-icons"><i class="fas fa-pencil-ruler"></i></span>
+            Products<span class="sr-only">(current)</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('Admin.show_customers') }}">
+            <span class="side-icons"><i class="fas fa-users"></i></span>
+            Customers
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('Admin.show_vendors') }}">
+            <span class="side-icons"><i class="fas fa-user-shield"></i></span>
+            Vendors
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('Admin.show_complains') }}">
+            <span class="side-icons"><i class="fas fa-exclamation-circle"></i></span>
+            Complains
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="">
+            <span class="side-icons"><i class="fas fa-comments"></i></span>
+            Feedbacks <span class="sr-only">(current)</span>
+        </a>
+    </li>
+{% endblock %}
+{% block content %}
+    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+        <h1 class="h2">Feedbacks Section</h1>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-striped table-sm">
+            <thead>
+                <th>#</th>
+                <th>Customer Id</th>
+                <th>Feedback</th>
+            </thead>
+            <tbody>
+                {% for feed in feedback %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ feed.customer_id }}</td>
+                    <td>{{ feed.description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

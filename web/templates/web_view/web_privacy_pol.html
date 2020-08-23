@@ -1,0 +1,45 @@
+{% extends 'web_view/layout.html' %}
+{% block head %}
+<style>
+    .privCont{
+        padding: 5px 50px;
+    }
+    @media only screen and (max-width: 768px){
+        .privCont{
+            padding: 5px 30px;
+        }   
+    }
+</style>
+{% endblock %}
+{% block content %}
+<section class="my-3">
+    <div class="container-fluid privCont">
+        <h2>Privacy Policy</h2>
+        <hr>
+        <br>
+        <ul>
+            <li>Your privacy is important to us as it is to you. We believe it is important for you to know how we treat the information we receive from you on the Internet. The given privacy statement briefly explains what personal data we, at Vriksh, collect from you, through our interactions with you on this website, our various social media platforms, and how we use that data.</li>
+            <li>We collect data from your visit to operate this website. You provide some of this data directly, such as when you submit the “Contact Us” form, call us, write a mail to us, or through any other interaction you indulge with us. Usually, the contact information we collect is used by us to respond to your enquiry, or allow you to access specific account information. We may execute other activities such as marketing campaign and promotional communications for which consent is taken appropriately or another appropriate lawful basis for the processing is identified.</li>
+            <li>We gather and process your data for providing and improving our services to you better and in an effective way. Usage of our services by you is considered your consent to collecting and using your information in accordance with our policy.</li>
+            <li>We may make use of cookies and related tracking technologies to trace the activities on our service as well as hold specific information regarding your activity on our website.</li>
+            <li>Cookies are defined as files having small amount data that may encompass an anonymous and unique identifier. These (Cookies) are sent to your browser via a website and cached on your device. In tracking technologies, scripts, tags, and beacons are implemented to gather, track, analyze and improve our Service.</li>
+            <li>If you choose to provide us with a third party's personal information (such as name, email, and phone number), you represent and warrant that you have the third party's permission to do so. Examples include forwarding reference or marketing material to a friend or sending job referrals.</li>
+            <li>We are not in the business of selling or sharing your Personal Information with third parties for marketing purposes unless you have granted us permission to do so.  We may share and use your Personal Information with our affiliates and subsidiaries worldwide or with third-party vendors, service providers, contractors or agents as required to perform specific purposes on our behalf.   Examples are not limited to delivering packages, processing credit card payments, checking for export compliance, and providing customer service. They have access to customer information to perform their jobs, but may not use it for other purposes. We may share the information to geographically or sector wise relevant resellers and/or distributors, particularly if you or your company have purchased through a third party before.  These companies and persons often provide service to the customers of Vriksh. They have access to customer information to perform their jobs, which is not limited to marketing of the products of Vriksh, but may not use it for other purposes.</li>
+            <li>Where permitted by law, Vriksh will take reasonable steps to permit you to access and modify Personal Information that you have submitted by logging into your account and updating your profile but we reserve the right to use Personal Information obtained or provided previously to verify your identity or take other actions that we believe are appropriate.  You can also exercise your rights of access and request corrections, suppression or deactivation of your Personal Information under applicable data protection laws by contacting us directly at the email address.  We make good faith efforts to honor reasonable requests to access, delete, update, suppress, or correct your data.  We will respond to your request within 30 days. If we are unable to honor your request, we will provide you with an explanation.  Please note that copies of information that you have updated, modified or deleted may remain viewable in cached and archived pages of the Website for a period of time.</li>
+        </ul>
+    </div>
+</section>
+{% endblock %}
+{% block foot2 %}
+<h5 class="pt-4" style="color: #fff;"><strong>Information</strong></h5>
+<div>
+    <div class="d-flex">
+        <i class="fas fa-caret-right pr-2" style="font-size: 20px;color: #fff"></i>
+        <a href="{{ url_for('Website.web_terms_cond', city=city) }}" style="color: #fff;"><h6>Terms & Condition</h6></a>
+    </div>
+    <div class="d-flex">
+        <i class="fas fa-caret-right pr-2" style="font-size: 20px;color: blue"></i>
+        <a href="" style="color: green;"><h6>Privacy Policy</h6></a>
+    </div>
+</div>
+{% endblock %}

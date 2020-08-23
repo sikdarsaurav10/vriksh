@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registration Form | Customer</title>
+
+    <link href="{{ url_for('static', filename='register/vendor/mdi-font/css/material-design-iconic-font.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ url_for('static', filename='fonts/font-awesome-4.7.0/css/font-awesome.min.css') }}" rel="stylesheet" media="all">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href="{{ url_for('static', filename='register/vendor/select2/select2.min.css') }}" rel="stylesheet" media="all">
+    <link href="{{ url_for('static', filename='register/vendor/datepicker/daterangepicker.css') }}" rel="stylesheet" media="all">
+    <link href="{{ url_for('static', filename='css/register/main.css') }}" rel="stylesheet" media="all">
+</head>
+
+<body>
+    <div class="page-wrapper bg-gra-03 p-t-45 p-b-50">
+        <div class="wrapper wrapper--w790">
+            <div class="card card-5">
+                <div class="card-heading">
+                    <h2 class="title">Customer Registration Form</h2>
+                </div>
+                <div class="card-body">
+                    <div>
+                        {% with messages = get_flashed_messages(with_categories=true) %}
+                            {% if messages %}
+                                <ul class=flashes>
+                                {% for category, message in messages %}
+                                    <li class="alert alert-{{ category }}">{{ message }}</li>
+                                {% endfor %}
+                                </ul>
+                            {% endif %}
+                        {% endwith %}
+                    </div>
+                    <form action="{{ url_for('Website.register_web') }}" method="POST" enctype="multipart/form-data" id="registerForm">
+                        <div class="form-row m-b-55">
+                            <div class="name">Name*</div>
+                            <div class="value">
+                                <div class="row row-space">
+                                    <div class="col-2">
+                                        <div class="input-group-desc">
+                                            <input class="input--style-5" type="text" name="f_name" required>
+                                            <label class="label--desc">first name</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group-desc">
+                                            <input class="input--style-5" type="text" name="last_name" required>
+                                            <label class="label--desc">last name</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Email*</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="email" name="email" placeholder="abc@example.com" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Phone Number*</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="text" name="contact_one" required>
+                                    <label class="label--desc">Phone Number</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Secondary Phone Number</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="text" name="contact_two">
+                                    <label class="label--desc">Phone Number</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Address*</div>
+                            <div class="value">
+                                <div class="row row-refine">
+                                    <div class="col-3">
+                                        <div class="input-group-desc">
+                                            <input class="input--style-5" type="text" name="house_no" required>
+                                            <label class="label--desc">House Number</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="input-group-desc">
+                                            <input class="input--style-5" type="text" name="landmark" required>
+                                            <label class="label--desc">Landmark</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row row-space" style="margin-top: 7%;">
+                                    <div class="col-2">
+                                        <div class="input-group-desc">
+                                            <input class="input--style-5" type="text" name="locality" required>
+                                            <label class="label--desc">Locality</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group">
+                                            <div class="rs-select2 js-select-simple select--no-search">
+                                                <select name="city" required>
+                                                    <option disabled="disabled" selected="selected">Choose option</option>
+                                                    {% for i in cities %}
+                                                        <option value="{{ i }}">{{ i }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <div class="select-dropdown"></div>
+                                            </div>
+                                        </div>
+                                        <label class="label--desc">City</label>
+                                    </div>
+                                </div>
+                                <div class="row row-space" style="margin-top: 7%;">
+                                    <div class="col-2">
+                                        <div class="input-group-desc">
+                                            <input class="input--style-5" type="text" name="state" required>
+                                            <label class="label--desc">State</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-2">
+                                        <div class="input-group-desc">
+                                            <input class="input--style-5" type="text" name="pinCode" required>
+                                            <label class="label--desc">Pin Code</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Password*</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="password" name="pass" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="name">Confirm Password*</div>
+                            <div class="value">
+                                <div class="input-group">
+                                    <input class="input--style-5" type="password" name="passConfirm" required>
+                                </div>
+                            </div>
+                            <div id="confirmMsg"></div>
+                        </div>
+                        <div>
+                            <button class="btn btn--radius-2 btn--red" type="submit">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="{{ url_for('static', filename='register/vendor/select2/select2.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='register/vendor/datepicker/moment.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='register/vendor/datepicker/daterangepicker.js') }}"></script>
+    <script src="{{ url_for('static', filename='register/global.js') }}"></script>
+    <script>
+        $('input[name="passConfirm"]').on("keyup", function(){
+            var pwd = $('input[name="pass"]').val();
+            if (this.value == pwd){
+                $('#confirmMsg').html('<p style="color: green;">Password Match</p>');
+            }
+            else{
+                $('#confirmMsg').html('<p style="color: red;">Password Do Not Match</p>');
+            }
+        });
+        $("#registerForm").submit(function (e) {
+            var validationFailed = false;
+            var pwd = $('input[name="pass"]').val();
+            var confirmpwd = $('input[name="passConfirm"]').val();
+            if (pwd == confirmpwd) {
+                var validationFailed = false;
+            }
+            else{
+                var validationFailed = true;
+            }
+            if (validationFailed) {
+               e.preventDefault();
+               $('#confirmMsg').html('<p style="color: red;">Cannot Submit Form, Please Check Password</p>');
+            }
+         }); 
+    </script>
+
+</body>
+</html>

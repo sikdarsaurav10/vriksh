@@ -1,0 +1,237 @@
+{% extends 'web_view/layout.html' %}
+{% block head %}
+<link href="{{ url_for('static', filename='css/resCarousel.css') }}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Trirong:300,400,400i,500,600,700" />
+<style>
+  body {
+      font-family: 'Trirong', serif;
+      background: #eee;
+  }
+  
+  .p0 {
+      padding: 0;
+  }
+  
+  .resCarousel-inner .item {
+      text-align: center;
+  }
+  
+  .resCarousel-inner .item .tile div,
+  .banner .item div {
+      display: table;
+      width: 100%;
+      min-height: 150px;
+      text-align: center;
+  }
+  
+  .resCarousel-inner .item h1 {
+      display: table-cell;
+      vertical-align: middle;
+      color: white;
+  }
+  
+  .item .tile div img {
+      object-fit: cover;
+      width: 100%;
+      height: 150px;
+      color: white;
+  }
+
+  .adCont{
+    width: 100%;
+    height: 160px;
+  }
+  .adCont img{
+    width: 100%;
+    height: 160px;
+  }
+</style>
+{% endblock %}
+{% block content %}
+<span style="display: none;" id="city">{{ city }}</span>
+<section class="mt-3">
+    <div class="container=fluid HeadCont">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+          <ol class="carousel-indicators">
+              <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+              <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+          </ol>
+          <div class="carousel-inner">
+              <div class="carousel-item active">
+                  <img src="{{ url_for('static', filename='images/web/slider-1.jpg') }}" class="d-block w-100" alt="slider Image">
+                  <div class="carousel-caption">
+                      <h5>Slider Image One</h5>
+                  </div>
+              </div>
+              <div class="carousel-item">
+                  <img src="{{ url_for('static', filename='images/web/slider-2.jpg') }}" class="d-block w-100" alt="slider Image">
+                  <div class="carousel-caption">
+                      <h5>Slider Image Two</h5>
+                  </div>
+              </div>
+              <div class="carousel-item">
+                  <img src="{{ url_for('static', filename='images/web/slider-3.jpg') }}" class="d-block w-100" alt="slider Image">
+                  <div class="carousel-caption">
+                      <h5>Slider Image Three</h5>
+                  </div>
+              </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+      </div>
+  </div>
+  </section>
+
+  <section class="mt-3">
+    <div class="container-fluid px-md-5 px-sm-1">
+      <div class="card shadow p-2 bg-white rounded">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h6 class="card-title">Products</h6>
+            <a href="{{ url_for('Website.get_products_all', city=city, category_name='all') }}">
+              <button class="btn btn-outline-warning mr-2">View More</button>
+            </a>
+          </div>
+          <hr>
+          <div class="container-fluid px-md-3 px-sm-1 p8" id="allProducts">
+            <div class="resCarousel" data-items="2-3-4-5" data-interval="2000" data-slide="1" data-animator="lazy">
+                <div class="resCarousel-inner" id="eventLoad">
+                  <!-- DOM UPDATION -->
+                </div>
+                <button class='btn btn-default leftRs'><</button>
+                <button class='btn btn-default rightRs'>></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-fluid adCont">
+    <img src="{{ url_for('static', filename='images/ad_pics/one.jpg') }}" alt="advertisment Image one">
+  </div>
+
+  <section class="mt-3">
+    <div class="container-fluid px-md-5 px-sm-1">
+      <div class="card shadow p-2 bg-white rounded">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title">Uttarakhand Specials</h5>
+            <a href="{{ url_for('Website.get_products_all', city=city, category_name='uttarakhand') }}">
+              <button class="btn btn-outline-warning mr-2">View More</button>
+            </a>
+          </div>
+          <hr>
+          <div class="container-fluid px-md-3 px-sm-1 p8" id="uttarakhandProducts">
+            <div class="resCarousel" data-items="2-3-4-5" data-interval="2000" data-slide="1" data-animator="lazy">
+                <div class="resCarousel-inner" id="eventLoad">
+                  <!-- DOM UPDATION -->
+                </div>
+                <button class='btn btn-default leftRs'><</button>
+                <button class='btn btn-default rightRs'>></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-fluid adCont">
+    <img src="{{ url_for('static', filename='images/ad_pics/two.jpg') }}" alt="advertisment Image two">
+  </div>
+
+  <section class="mt-3">
+    <div class="container-fluid px-md-5 px-sm-1">
+      <div class="card shadow p-2 bg-white rounded">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title">Featured Products</h5>
+            <a href="{{ url_for('Website.get_products_all', city=city, category_name='featured') }}">
+              <button class="btn btn-outline-warning mr-2">View More</button>
+            </a>
+          </div>
+          <hr>
+          <div class="container-fluid px-md-3 px-sm-1 p8" id="featuredProducts">
+            <div class="resCarousel" data-items="2-3-4-5" data-interval="2000" data-slide="1" data-animator="lazy">
+                <div class="resCarousel-inner" id="eventLoad">
+                  <!-- DOM UPDATION -->
+                </div>
+                <button class='btn btn-default leftRs'><</button>
+                <button class='btn btn-default rightRs'>></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-fluid adCont">
+    <img src="{{ url_for('static', filename='images/ad_pics/three.jpg') }}" alt="advertisment Image three">
+  </div>
+
+  <section class="mt-3">
+    <div class="container-fluid px-md-5 px-sm-1">
+      <div class="card shadow p-2 bg-white rounded">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title">Truly Organic</h5>
+            <a href="{{ url_for('Website.get_products_all', city=city, category_name='organic') }}">
+              <button class="btn btn-outline-warning mr-2">View More</button>
+            </a>
+          </div>
+          <hr>
+          <div class="container-fluid px-md-3 px-sm-1 p8" id="organicProducts">
+            <div class="resCarousel" data-items="2-3-4-5" data-interval="2000" data-slide="1" data-animator="lazy">
+                <div class="resCarousel-inner" id="eventLoad">
+                  <!-- DOM UPDATION -->
+                </div>
+                <button class='btn btn-default leftRs'><</button>
+                <button class='btn btn-default rightRs'>></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="container-fluid adCont">
+    <img src="{{ url_for('static', filename='images/ad_pics/four.jpg') }}" alt="advertisment Image four">
+  </div>
+
+  <section class="mt-3">
+    <div class="container-fluid px-md-5 px-sm-1">
+      <div class="card shadow p-2 bg-white rounded">
+        <div class="card-body">
+          <div class="d-flex justify-content-between">
+            <h5 class="card-title">Seasonal Products</h5>
+            <a href="{{ url_for('Website.get_products_all', city=city, category_name='seasonal') }}">
+              <button class="btn btn-outline-warning mr-2">View More</button>
+            </a>
+          </div>
+          <hr>
+          <div class="container-fluid px-md-3 px-sm-1 p8" id="seasonalProducts">
+            <div class="resCarousel" data-items="2-3-4-5" data-interval="2000" data-slide="1" data-animator="lazy">
+                <div class="resCarousel-inner" id="eventLoad">
+                  <!-- DOM UPDATION -->
+                </div>
+                <button class='btn btn-default leftRs'><</button>
+                <button class='btn btn-default rightRs'>></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
+{% block script %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="{{ url_for('static', filename='js/resCarousel.js') }}"></script>
+<script src="{{ url_for('static', filename='js/web_landing_page.js') }}"></script>
+{% endblock %}

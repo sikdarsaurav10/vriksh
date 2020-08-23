@@ -1,0 +1,29 @@
+{% extends 'admin/admin_index.html' %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">About Section</h1>
+</div>
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+                <li class="alert alert-{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+<br>
+<div>
+    <form action="{{ url_for('Admin.update_about') }}" method="post">
+        <div class="form-group">
+            <label for="Textarea1">Update About Section</label>
+            <textarea class="form-control" id="Textarea1" rows="3" name="description">{{ about.description }}</textarea>
+        </div>
+        <div>
+            <button type="submit" class="btn btn-outline-success">Update</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

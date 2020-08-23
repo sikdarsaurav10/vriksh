@@ -1,0 +1,51 @@
+.mobile.container-fluid {
+    width: 100%;
+    height: auto;
+    padding: 1% 3%;
+}
+.phoneView {
+    text-align: center;
+    border-bottom: 1px solid rgba(10, 10, 10, 0.2);
+    margin-top: 10%;
+}
+.phoneView img {
+    padding: 0.5em 0.75em;
+    height: 140px;
+    width: 120px;
+}
+.phoneView:hover .phoneTextArea {
+    color: #8db726;
+}
+.phoneTextArea {
+    font-size: 20px;
+}
+p.phoneTextArea {
+    font-size: 12px;
+}
+@media only screen and (max-width: 768px) {
+    .phoneView .linkDiv{
+        display: flex;
+        text-align: left;
+    }
+    .phoneView .linkDiv img {
+        padding: 0;
+        height: 170px;
+        width: 120px;
+    }
+    .phoneViewText {
+        position: relative;
+        margin-left: 10px;
+        width: 100%;
+        height: auto;
+    }
+    .mobile .row .col-sm-3 {
+        margin-top: 5px;
+        border-bottom: 1px solid rgba(10, 10, 10, 0.2);
+    }
+    .phoneTextArea {
+        font-size: 20px;
+    }
+    #removeFilter {
+        margin-top: 3%;
+    }
+}

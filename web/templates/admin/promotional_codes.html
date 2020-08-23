@@ -1,0 +1,60 @@
+{% extends 'admin/admin_index.html' %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Promotional Codes</h1>
+</div>
+
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+                <li class="alert alert-{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<div>
+    <form action="{{ url_for('Admin.create_code') }}" method="post">
+        <div class="form-row">
+            <div class="col">
+                <input type="text" class="form-control" id="Pcode" name="code" placeholder="Promotion Code" required>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" id="Damt" name="discount" placeholder="Discount amount" required>
+            </div>
+        </div>
+        <br>
+        <div>
+            <button type="submit" class="btn btn-outline-success">Create</button>
+        </div>
+    </form>
+</div>
+<br>
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <th>#</th>
+            <th>Promotion Code</th>
+            <th>Discount</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {% for code in promo %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ code.code }}</td>
+                <td>{{ code.discount }}/-</td>
+                <td>
+                    <a href="{{ url_for('Admin.remove_code', code=code.code) }}">
+                        <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

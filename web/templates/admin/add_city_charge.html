@@ -1,0 +1,60 @@
+{% extends 'admin/admin_index.html' %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Add City & Delivery Charge</h1>
+</div>
+
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+                <li class="alert alert-{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<div>
+    <form action="{{ url_for('Admin.add_city_charge_view') }}" method="post">
+        <div class="form-row">
+            <div class="col">
+                <input type="text" class="form-control" id="Pcode" name="city" placeholder="City Name" required>
+            </div>
+            <div class="col">
+                <input type="text" class="form-control" id="Damt" name="charge" placeholder="Delivery Charge" required>
+            </div>
+        </div>
+        <br>
+        <div>
+            <button type="submit" class="btn btn-outline-success">Create</button>
+        </div>
+    </form>
+</div>
+<br>
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <th>#</th>
+            <th>City</th>
+            <th>Delivery Charge</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {% for i in item %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ i.city }}</td>
+                <td>{{ i.delivery_charge }}/-</td>
+                <td>
+                    <a href="{{ url_for('Admin.remove_city_charge_view', city=i.city) }}">
+                        <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

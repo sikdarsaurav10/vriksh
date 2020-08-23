@@ -1,0 +1,93 @@
+{% extends 'admin/admin_vendors.html' %}
+{% block head %}
+<style>
+    .add{
+        background: green;
+        border-radius: 50%;
+        color: white;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    .delete{
+        background: red;
+        border-radius: 50%;
+        color: white;
+        padding-left: 7px;
+        padding-right: 7px;
+    }
+</style>
+{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+    <h1 class="h2">Send Products</h1>
+    <hr>
+    Vendor Id:-  
+    <div id="vendor_id">{{ vendor }}</div>
+</div>
+
+<br>
+<div class="table-responsive">
+    <table  id="sendProductsTable" class="table table-striped table-sm">
+        <thead>
+            <th>#</th>
+            <th>Product Id</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Original Price</th>
+            <th>Discounted Price</th>
+            <th>Image</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {% for item in products %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td class="product_id">{{ item.product_id }}</td>
+                <td class="name">{{ item.product_name }}</td>
+                <td class="category">{{ item.category_name }}</td>
+                <td class="price">{{ item.price }}/-</td>
+                <td class="discount">{{ item.discount }}/-</td>
+                <td>
+                    <img src="{{ url_for('static', filename='images/product_prof_pic/')+item.prof_img }}" width="40px" height="40px" alt="product image">
+                </td>
+                <td class="quantity d-flex">
+                    <div class="item-quantity d-flex">
+                        <div>
+                            <button class="add mr-2" value="+">+</button>
+                        </div>
+                        <p class="item">0</p>
+                        <div>
+                            <button class="delete ml-2" value="-">-</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<hr>
+
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+                <li class="alert alert-{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<div class="text-right">
+    <button type="button" id="sendItem" class="btn btn-outline-success btn-block mb-2">Send Products</button>
+</div>
+<br>
+<div id="sendMsg">
+
+</div>
+{% endblock %}
+{% block script %}
+<script src="{{ url_for('static', filename='js/send_products.js') }}"></script>
+{% endblock %}

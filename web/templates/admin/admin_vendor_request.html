@@ -1,0 +1,51 @@
+{% extends 'admin/admin_index.html' %}
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+    <h1 class="h2">Vendor Request</h1>
+</div>
+
+<div>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+            {% for category, message in messages %}
+                <li class="alert alert-{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+</div>
+
+<br>
+<div class="table-responsive">
+    <table class="table table-striped table-sm">
+        <thead>
+            <th>#</th>
+            <th>Vendor Id</th>
+            <th>Name</th>
+            <th>Shop Name</th>
+            <th>Address</th>
+            <th>Action</th>
+        </thead>
+        <tbody>
+            {% for item in vendor %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ item.vendor_id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.store_name }}</td>
+                <td>{{ item.house_no }}, {{ item.landmark }}, {{ item.locality }}, {{ item.city }}, {{ item.state }} {{ item.pincode }}.</td>
+                <td>
+                    <a href="{{ url_for('Admin.add_vendor', vendor_id=item.vendor_id, status=1) }}">
+                        <button class="btn btn-outline-success">Accept</button>
+                    </a>
+                    <a href="{{ url_for('Admin.add_vendor', vendor_id=item.vendor_id, status=0) }}">
+                        <button class="btn btn-outline-danger"><i class="fas fa-trash"></i></button>
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
