@@ -7,9 +7,8 @@ from web.models import Vendor, Vendor_products, Complaints,\
     New_order, New_order_products, Ongoing_order, Ongoing_order_products,\
     Prev_order, Prev_order_products, Vendor_rating, Deliveryboy, Customer,\
     Deliveryboy, Products
-from web.utils import login_required, save_vendor_pic,\
-    save_deliveryBoy_aadharpic, send_push_customer, find_coord,\
-    send_push_vendor, send_push_driver
+from web.utils import login_required, save_vendor_pic, send_push_customer,\
+    find_coord, send_push_vendor, send_push_driver
 import uuid
 from werkzeug.security import generate_password_hash
 
@@ -55,9 +54,6 @@ def create_vendor():
 
     db.session.add(new_user)
 
-    new_settings = Delivery_options(vendor_details=vendor_id)
-
-    db.session.add(new_settings)
     db.session.commit()
 
     return jsonify({"success": "1", "message": "New Vendor created"})
